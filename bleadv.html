@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indoor Smart Navigation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    <div class="banner"></div>
+    <div class="navbar">
+        <img src="logo.png" class="logo">
+        <ul>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="https://yogi999-creator.github.io/Navigation.io/index.html">Outdoor</a></li>
+
+            <li><a href="https://docs.google.com/document/d/10KwpOorgi1c-x-qPm_iwsJuIMWwUCFIUp16QTGJaAUU/edit?usp=sharing">Our Team</a></li>
+            
+        </ul>
+
+    </div>
+    <div class="content">
+        <h1> Welcome to Indoor Tour</h1>
+        <h2> Connect to Bluetooth device to Get Started</h2>
+        <p> In order to navigate indoor, you need to turn on your Device Bluetooth and connect to the devive</p>
+        <p>On first Step Please connect to bluetooth device name " LT202 "</p>
+
+    </div>
+    <form>
+        <center>
+            <span id="tooltiptext">If you are not able to understand which device to connect, please click on help.<br></span>
+            <button
+                style="border: none; outline: 0; padding: 12px; color: white; background-color: #000; text-align: center; cursor: pointer;  font-size: 18px;">
+                Click here to scan Bluetooth device.
+            </button>
+            
+        </center>
+    </form>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <script>
+        var deviceName = 'LT202' && 'ECELab3'
+
+        function isWebBluetoothEnabled() {
+            
+            if (!navigator.bluetooth) {
+                console.log('Web Bluetooth API is not available in this browser!')
+                return false
+            }
+
+            return true
+        }
+        var deviceName = "";
+
+        function getDeviceInfo() {
+            let options = {
+                acceptAllDevices: true, // Option to accept all devices
+                acceptAllAdvertisements: true
+            }
+            console.log('Requesting Bluetooth Device...')
+            navigator.bluetooth.requestDevice(options).then(device => {
+                console.log(device);
+                console.log('> Name: ' + device.name);
+                // console.log('Rssi: ' + device.rssi);
+                console.log('UUID: ' + device.uiids);
+                console.log('ID: ' + device.id);
+                deviceName = device.name;
+                if (device.name == 'LT202') {
+                    window.open('1.html');
+                } else if (device.name == 'ECELab3') {
+                    window.open('2.html');s
+                }
+            }).catch(error => {
+                console.log('Argh! ' + error)
+            })
+
+            
+            return deviceName;
+        }
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.stopPropagation()
+            event.preventDefault()
+
+            if (isWebBluetoothEnabled()) {
+                getDeviceInfo()
+                var Dname = deviceName;
+                //saveMessage(Dname);
+
+
+            }
+        })
+
+        // Your web app's Firebase configuration
+        // var firebaseConfig = {
+        //     apiKey: "AIzaSyAtHG3eCHrwDjxUVdTJReQdhYN21BJjLRk",
+        //     authDomain: "niit-tour.firebaseapp.com",
+        //     projectId: "niit-tour",
+        //     storageBucket: "niit-tour.appspot.com",
+        //     messagingSenderId: "759103201380",
+        //     appId: "1:759103201380:web:8e106a00c5259268467f71"
+        // };
+        // Initialize Firebase
+        // firebase.initializeApp(firebaseConfig);
+
+
+        // var messagesRef = firebase.database()
+        //     .ref('Bluetooth Data');
+
+        // document.getElementById('form')
+        //     .addEventListener('submit', submitForm);
+
+
+        // function googleSignout() {
+        //     firebase.auth().signOut()
+
+        //         .then(function () {
+        //             console.log('Signout Succesfull')
+        //         }, function (error) {
+        //             console.log('Signout Failed')
+        //         });
+        // }
+        // Save message to firebase 
+        // function saveMessage(Dname) {
+        //     var newMessageRef = messagesRef.push();
+        //     newMessageRef.set({
+        //         Devicename: Dname,
+
+        //     });
+        // }
+
+
+    </script>
+</body>
+
+</html>
